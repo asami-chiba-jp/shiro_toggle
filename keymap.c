@@ -39,6 +39,8 @@ enum {
   TD_4R,
 };
 
+int mod_state_count; // この行を追加
+
 #define NUMBER TO(_NUMBER)
 #define CURSOL TO(_CURSOL)
 #define TOGGLE TO(_TOGGLE)
@@ -86,21 +88,38 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
+/*
+  「state->count」には、一定時間（TAPPING_TERMで指定した時間）内にキーを連打した回数が格納されています。
+  その連打回数を5で割った場合の余り(「state->count % 5」で求めています)は、次のような規則性のある数値になります。
+   - 連打回数1->余りは1
+   - 連打回数2->余りは2
+   - 連打回数3->余りは3
+   - 連打回数4->余りは4
+   - 連打回数5->余りは0
+   - 連打回数6->余りは1
+   - 連打回数7->余りは2
+  よって、この余りの規則性を利用することで、6回以上連打しても、ガラケーのような入力となります。
+*/
+
 void dance_cln_finished (qk_tap_dance_state_t *state, void *user_data) {
   switch (state->keycode) {
+/****計算式が違う？　modが動作しておらず、常に余り0****/
+
+    mod_state_count = state->count % 5; //この行を追加
+
     case TD(TD_1L):
-      if (state->count == 1) {
+      if (mod_state_count == 1) {
 	SEND_STRING("a"); // keydown時の動作(''と入力)
-      } else if (state->count == 2) {
-	SEND_STRING("i");
-      } else if (state->count == 3) {
-	SEND_STRING("u");
-      } else if (state->count == 4) {
-	SEND_STRING("e");
-      } else if (state->count == 5) {
-	SEND_STRING("o");
+      } else if (mod_state_count == 2) {
+      	SEND_STRING("i");
+      } else if (mod_state_count == 3) {
+        SEND_STRING("u");
+      } else if (mod_state_count == 4) {
+      	SEND_STRING("e");
+      } else if (mod_state_count == 0) {
+      	SEND_STRING("o");
       }
-    break;
+      break;
     case TD(TD_1C):
       if (state->count == 1) {
 	SEND_STRING("ka");// keydown時の動作(''と入力)
