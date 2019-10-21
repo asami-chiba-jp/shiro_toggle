@@ -23,21 +23,20 @@ enum layer_number {
 
 enum {
   TD_1L = 0,
-  TD_1C = 0,
-  TD_1R = 0,
+  TD_1C,
+  TD_1R,
 
-  TD_2L = 0,
-  TD_2C = 0,
-  TD_2R = 0,
+  TD_2L,
+  TD_2C,
+  TD_2R,
 
-  TD_3L = 0,
-  TD_3C = 0,
-  TD_3R = 0,
+  TD_3L,
+  TD_3C,
+  TD_3R,
 
-  TD_4L = 0,
-  TD_4C = 0,
-  TD_4R = 0,
-
+  TD_4L,
+  TD_4C,
+  TD_4R,
 };
 
 #define NUMBER TO(_NUMBER)
@@ -68,14 +67,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_P7,    KC_P8,    KC_P9,
     KC_P4,    KC_P5,    KC_P6,
     KC_P1,    KC_P2,    KC_P3,
-    KC_P0,    KC_BSPC,  KC_ENT
+    KC_BSPC,  KC_P0,    KC_ENT
   ),
   [_CURSOL] = LAYOUT( 
     NUMBER,   CURSOL,   TOGGLE,
     KC_HOME,  KC_UP,    KC_PGUP,
     KC_LEFT,  KC_ESC,   KC_RIGHT,
     KC_END,   KC_DOWN,  KC_PGDN,
-    KC_DEL,   KC_BSPC,  KC_ENT
+    KC_BSPC,  KC_DEL,   KC_ENT
   ), 
   [_TOGGLE] = LAYOUT( 
     NUMBER,   CURSOL,   TOGGLE,
@@ -87,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
-void dance1L (qk_tap_dance_state_t *state, void *user_data) {
+void dance_cln_finished (qk_tap_dance_state_t *state, void *user_data) {
   switch (state->keycode) {
     case TD(TD_1L):
       if (state->count == 1) {
@@ -102,11 +101,6 @@ void dance1L (qk_tap_dance_state_t *state, void *user_data) {
 	SEND_STRING("o");
       }
     break;
- }
-}
-
-void dance1C (qk_tap_dance_state_t *state, void *user_data) {
-  switch (state->keycode) {
     case TD(TD_1C):
       if (state->count == 1) {
 	SEND_STRING("ka");// keydown時の動作(''と入力)
@@ -120,12 +114,7 @@ void dance1C (qk_tap_dance_state_t *state, void *user_data) {
 	SEND_STRING("ko");
       }
     break;
- }
-}
-
-void dance1R (qk_tap_dance_state_t *state, void *user_data) {
-  switch (state->keycode) {
-     case TD(TD_1R):
+    case TD(TD_1R):
       if (state->count == 1) {
 	SEND_STRING("sa"); // keydown時の動作(''と入力)
       } else if (state->count == 2) {
@@ -137,12 +126,7 @@ void dance1R (qk_tap_dance_state_t *state, void *user_data) {
       } else if (state->count == 5) {
 	SEND_STRING("so");
       }
-     break;
- }
-}
-
-void dance2L (qk_tap_dance_state_t *state, void *user_data) {
-  switch (state->keycode) {
+    break;
     case TD(TD_2L):
       if (state->count == 1) {
 	SEND_STRING("ta"); // keydown時の動作(''と入力)
@@ -156,12 +140,7 @@ void dance2L (qk_tap_dance_state_t *state, void *user_data) {
 	SEND_STRING("to");
       }
     break;
- }
-}
-
-void dance2C (qk_tap_dance_state_t *state, void *user_data) {
-  switch (state->keycode) {
-     case TD(TD_2C):
+    case TD(TD_2C):
       if (state->count == 1) {
 	SEND_STRING("na");// keydown時の動作(''と入力)
       } else if (state->count == 2) {
@@ -174,11 +153,6 @@ void dance2C (qk_tap_dance_state_t *state, void *user_data) {
 	SEND_STRING("no");
       }
      break;
- }
-}
-
-void dance2R (qk_tap_dance_state_t *state, void *user_data) {
-  switch (state->keycode) {
      case TD(TD_2R):
       if (state->count == 1) {
 	SEND_STRING("ha");// keydown時の動作(''と入力)
@@ -191,12 +165,7 @@ void dance2R (qk_tap_dance_state_t *state, void *user_data) {
       } else if (state->count == 5) {
 	SEND_STRING("ho");
       }
-     break;
- }
-}
-
-void dance3L (qk_tap_dance_state_t *state, void *user_data) {
-  switch (state->keycode) {
+    break;
     case TD(TD_3L):
       if (state->count == 1) {
 	SEND_STRING("ma");// keydown時の動作(''と入力)
@@ -210,11 +179,6 @@ void dance3L (qk_tap_dance_state_t *state, void *user_data) {
 	SEND_STRING("mo");
       }
     break;
- }
-}
-
-void dance3C (qk_tap_dance_state_t *state, void *user_data) {
-  switch (state->keycode) {
     case TD(TD_3C):
       if (state->count == 1) {
 	SEND_STRING("ya");// keydown時の動作(''と入力)
@@ -228,11 +192,6 @@ void dance3C (qk_tap_dance_state_t *state, void *user_data) {
 	SEND_STRING("yo");
       }
     break;
- }
-}
-
-void dance3R (qk_tap_dance_state_t *state, void *user_data) {
-  switch (state->keycode) {
     case TD(TD_3R):
       if (state->count == 1) {
 	SEND_STRING("ra");// keydown時の動作(''と入力)
@@ -246,11 +205,6 @@ void dance3R (qk_tap_dance_state_t *state, void *user_data) {
 	SEND_STRING("ro");
       }
     break;
- }
-}
-
-void dance4L (qk_tap_dance_state_t *state, void *user_data) {
-  switch (state->keycode) {
     case TD(TD_4L):
       if (state->count == 1) {
 	SEND_STRING("xa");// keydown時の動作(''と入力)
@@ -264,11 +218,6 @@ void dance4L (qk_tap_dance_state_t *state, void *user_data) {
 	SEND_STRING("xo");
       }
     break;
- }
-}
-
-void dance4C (qk_tap_dance_state_t *state, void *user_data) {
-  switch (state->keycode) {
     case TD(TD_4C):
       if (state->count == 1) {
 	SEND_STRING("wa");// keydown時の動作(''と入力)
@@ -282,22 +231,17 @@ void dance4C (qk_tap_dance_state_t *state, void *user_data) {
 	SEND_STRING(SS_LALT("`"));
       }
     break;
- }
-}
-
-void dance4R (qk_tap_dance_state_t *state, void *user_data) {
-  switch (state->keycode) {
     case TD(TD_4R):
       if (state->count == 1) {
-	SEND_STRING("4R1"); // keydown時の動作(''と入力)
+	SEND_STRING("Yes"); // keydown時の動作(''と入力)
       } else if (state->count == 2) {
-	SEND_STRING("4R2");
+	SEND_STRING("No");
       } else if (state->count == 3) {
-	SEND_STRING("4R3");
+	SEND_STRING("Hello");
       } else if (state->count == 4) {
-	SEND_STRING("4R4");
+	SEND_STRING("Bye");
       } else if (state->count == 5) {
-	SEND_STRING("4R5");
+	SEND_STRING("one more please");
       }
     break;
  }
@@ -311,19 +255,19 @@ void dance_cln_reset (qk_tap_dance_state_t *state, void *user_data) {  // TapDan
 }
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-  [TD_1L] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance1L, dance_cln_reset),
-  [TD_1C] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance1C, dance_cln_reset),
-  [TD_1R] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance1R, dance_cln_reset),
+  [TD_1L] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_cln_finished, dance_cln_reset),
+  [TD_1C] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_cln_finished, dance_cln_reset),
+  [TD_1R] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_cln_finished, dance_cln_reset),
 
-  [TD_2L] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance2L, dance_cln_reset),
-  [TD_2C] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance2C, dance_cln_reset),
-  [TD_2R] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance2R, dance_cln_reset),
+  [TD_2L] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_cln_finished, dance_cln_reset),
+  [TD_2C] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_cln_finished, dance_cln_reset),
+  [TD_2R] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_cln_finished, dance_cln_reset),
 
-  [TD_3L] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance3L, dance_cln_reset),
-  [TD_3C] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance3C, dance_cln_reset),
-  [TD_3R] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance3R, dance_cln_reset),
+  [TD_3L] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_cln_finished, dance_cln_reset),
+  [TD_3C] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_cln_finished, dance_cln_reset),
+  [TD_3R] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_cln_finished, dance_cln_reset),
 
-  [TD_4L] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance4L, dance_cln_reset),
-  [TD_4C] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance4C, dance_cln_reset),
-  [TD_4R] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance4R, dance_cln_reset),
+  [TD_4L] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_cln_finished, dance_cln_reset),
+  [TD_4C] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_cln_finished, dance_cln_reset),
+  [TD_4R] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_cln_finished, dance_cln_reset),
 };
